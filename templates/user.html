@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+<div id="user-title-container">
+  <h1 id="user-title">User Information</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="user-content-container">
+  <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
+  <p>Username: {{ user.username }}</p>
+  <p>Email: {{ user.email }}</p>
+</div>
+
+<div id="user-feedback-container">
+  <h1 id="user-feedback-title">Feedback</h1>
+  
+  <div id="user-feedback-list">
+    {% if user.feedback %}
+      <div>
+      {% for item in user.feedback %}
+        <div>
+          {{ item.title }}
+          {{ item.content }}
+          <a class="btn btn-secondary" href="/feedback/{{ item.id }}/update">Edit Feedback</a>
+          <a class="btn btn-danger" href="/feedback/{{ item.id }}/delete">Delete Feedback</a>
+        </div>
+      {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<a href="/users/{{ user.username }}/feedback/add" class="btn btn-primary">Add Feedback</a>
+{% endblock %}
